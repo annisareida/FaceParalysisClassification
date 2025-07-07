@@ -8,14 +8,14 @@ import tensorflow as tf
 # Load model
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model('final_modelYFPMEIIBINER100modelfit2.h5')
+    return tf.keras.models.load_model('final_modelYFPMEIIBINERaug1000.h5')
 
 model = load_model()
 class_names = ['Normal', 'Paralysis']
 
 # Prediksi
 def predict_image(img_pil):
-    img = img_pil.resize((256, 256))
+    img = img_pil.resize((224,224))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
@@ -45,7 +45,8 @@ elif input_type == 'Use Webcam':
 
 # Prediksi dan hasil
 if image_source:
-    st.image(image_source, caption="Input Image", use_column_width=True)
+    st.image(image_source, caption="Input Image", use_container_width=True)
+
 
     if st.button("Predict"):
         label, confidence = predict_image(image_source)
